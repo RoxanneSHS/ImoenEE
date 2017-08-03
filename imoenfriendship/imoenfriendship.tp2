@@ -1,0 +1,77 @@
+// --------------------------------------------
+// Mod setup
+// --------------------------------------------
+// Basics
+BACKUP ~imoenfriendship/backup~
+AUTHOR ~K'aeloree (kae@spellholdstudios.net)~
+
+VERSION ~v3.0~
+
+// Default to English readme if not found in the selected language
+README ~imoenfriendship/translations/%LANGUAGE%/imoenfriendship.html~ ~imoenfriendship/imoenfriendship.html~
+
+
+// Isaya : Additional check to support special characters for BGEE
+// Inspired by BGQE / Edwin Romance
+ALWAYS
+  ACTION_IF GAME_IS ~eet~ BEGIN
+    OUTER_SET bg2_chapter = 12
+  END ELSE BEGIN
+    OUTER_SET bg2_chapter = 0
+  END
+  OUTER_FOR (i=1; i<=10; i=i+1) BEGIN
+    OUTER_SET bg2_chapter = bg2_chapter + 1
+    OUTER_SPRINT name_source ~bg2_chapter_%i%~
+    OUTER_SET EVAL ~%name_source%~ = bg2_chapter
+  END
+
+  // We want this to happen only once
+  ACTION_IF !FILE_EXISTS ~%MOD_FOLDER%/translations/%LANGUAGE%/utf8.mrk~ BEGIN
+    ACTION_IF GAME_IS ~bg2ee~ THEN BEGIN
+      // Copies UTF8-encoded tra files over the normal ones, for use with AUTO_TRA
+      DEFINE_ACTION_FUNCTION autotra_workaround BEGIN
+        COPY ~%MOD_FOLDER%/translations/utf8/%LANGUAGE%~  ~%MOD_FOLDER%/translations/%LANGUAGE%~
+      END
+
+      LAF autotra_workaround END
+
+      // TRAs declared in LANGUAGE must be reloaded
+      LOAD_TRA "%MOD_FOLDER%/translations/%LANGUAGE%/setup.tra"
+    END
+    COPY_EXISTING sw1h01.itm ~%MOD_FOLDER%/translations/%LANGUAGE%/utf8.mrk~
+  END
+
+END //ALWAYS
+
+
+// Translations
+AUTO_TRA ~imoenfriendship/translations/%s~
+
+LANGUAGE ~English~
+         ~English~
+         ~imoenfriendship/translations/english/setup.tra~
+LANGUAGE ~Russian~
+         ~Russian~
+         ~imoenfriendship/translations/russian/setup.tra~
+LANGUAGE ~Polish~
+         ~Polish~                                       
+         ~imoenfriendship/translations/polish/setup.tra~
+// Isaya : added French
+LANGUAGE ~Francais~
+         ~french~                                       
+         ~imoenfriendship/translations/french/setup.tra~
+         
+// Baldur's Gate II
+BEGIN @0
+  REQUIRE_PREDICATE GAME_IS ~bg2ee eet bgt tob~ @2
+
+// Adding CD_STATE_NOTVALID
+APPEND ~STATE.IDS~
+  ~0x80101FEF CD_STATE_NOTVALID~
+  UNLESS ~CD_STATE_NOTVALID~
+
+// Compiling dialogue & scripts
+COMPILE ~imoenfriendship/dialogue/imoen2j.d~
+EXTEND_BOTTOM ~imoen2.bcs~ ~imoenfriendship/scripts/imoen2.baf~ EVALUATE_BUFFER
+COMPILE ~imoenfriendship/dialogue/imoen25j.d~
+EXTEND_TOP ~imoe25.bcs~ ~imoenfriendship/scripts/imoe25.baf~
