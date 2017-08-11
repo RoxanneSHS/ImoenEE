@@ -2,17 +2,12 @@
 // Mod setup
 // --------------------------------------------
 // Basics
-BACKUP ~imoenfriendship/backup~
+BACKUP ~imoenfriendshipee/backup~
 AUTHOR ~K'aeloree (kae@spellholdstudios.net)~
 
 VERSION ~v3.0~
 
-// Default to English readme if not found in the selected language
-README ~imoenfriendship/translations/%LANGUAGE%/imoenfriendship.html~ ~imoenfriendship/imoenfriendship.html~
 
-
-// Isaya : Additional check to support special characters for BGEE
-// Inspired by BGQE / Edwin Romance
 ALWAYS
   ACTION_IF GAME_IS ~eet~ BEGIN
     OUTER_SET bg2_chapter = 12
@@ -45,21 +40,21 @@ END //ALWAYS
 
 
 // Translations
-AUTO_TRA ~imoenfriendship/translations/%s~
+AUTO_TRA ~imoenfriendshipee/translations/%s~
 
 LANGUAGE ~English~
          ~English~
-         ~imoenfriendship/translations/english/setup.tra~
+         ~imoenfriendshipee/translations/english/setup.tra~
 LANGUAGE ~Russian~
          ~Russian~
-         ~imoenfriendship/translations/russian/setup.tra~
+         ~imoenfriendshipee/translations/russian/setup.tra~
 LANGUAGE ~Polish~
          ~Polish~                                       
-         ~imoenfriendship/translations/polish/setup.tra~
+         ~imoenfriendshipee/translations/polish/setup.tra~
 // Isaya : added French
 LANGUAGE ~Francais~
          ~french~                                       
-         ~imoenfriendship/translations/french/setup.tra~
+         ~imoenfriendshipee/translations/french/setup.tra~
          
 // Baldur's Gate II
 BEGIN @0
@@ -71,7 +66,7 @@ APPEND ~STATE.IDS~
   UNLESS ~CD_STATE_NOTVALID~
 
 // Compiling dialogue & scripts
-COMPILE ~imoenfriendship/dialogue/imoen2j.d~
-EXTEND_BOTTOM ~imoen2.bcs~ ~imoenfriendship/scripts/imoen2.baf~ EVALUATE_BUFFER
-COMPILE ~imoenfriendship/dialogue/imoen25j.d~
-EXTEND_TOP ~imoe25.bcs~ ~imoenfriendship/scripts/imoe25.baf~
+COMPILE ~imoenfriendshipee/dialogue/imoen2j.d~
+EXTEND_BOTTOM ~imoen2.bcs~ ~imoenfriendshipee/scripts/imoen2.baf~ EVALUATE_BUFFER
+COMPILE ~imoenfriendshipee/dialogue/imoen25j.d~
+EXTEND_TOP ~imoe25.bcs~ ~imoenfriendshipee/scripts/imoe25.baf~
