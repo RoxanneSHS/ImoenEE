@@ -50,7 +50,10 @@ LANGUAGE ~Polish~
          ~imoenfriendship/translations/polish/setup.tra~
 LANGUAGE ~Francais~
          ~french~                                       
-         ~imoenfriendship/translations/french/setup.tra~         
+         ~imoenfriendship/translations/french/setup.tra~  
+LANGUAGE ~Spanish~
+         ~Spanish~
+         ~imoenfriendship/translations/spanish/setup.tra~         
 
          
 // Baldur's Gate II
